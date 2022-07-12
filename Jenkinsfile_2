@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'project_name', defaultValue: 'Packer Pipeline', description: 'Jenkins Pipeline for terraform?')
+    }
+    environment {
+        terraform_version = '1.2.4'
+        packer_version = '1.8.2'
+        access_key = 'input_your_access_key'
+        secret_key = 'input_your_secret_key'
+    }
+    stages {
+          stage('Install packer') {
+              steps {
+                    sh "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -"
+                    sh "sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main""
+                    sh "sudo apt-get update && sudo apt-get install packer" 
+                    sh "sudo packer -version "
+              }
+          }
+            stage('code checkout') {
+               steps {
+                    git branch: 'main', url: 'https://github.com/Patlollavinod/TPJ_jenkins.git'
+                    }
