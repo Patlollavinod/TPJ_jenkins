@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    parameters {
+        string(name: 'project_name', defaultValue: 'Packer Pipeline', description: 'Jenkins Pipeline for terraform?')
+    }
+    environment {
+        terraform_version = '1.2.4'
+        packer_version = '1.8.2'
+        access_key = 'input_your_access_key'
+        secret_key = 'input_your_secret_key'
+    }
+    stages {
+          stage('Install Terraform') {
+              steps {
+                    sh "sudo "
+                    sh "sudo cd /tmp"
+                    sh "sudo curl -o bin_terraform.zip https://releases.hashicorp.com/terraform/'$terraform_version'/terraform_'$terraform_version'_linux_amd64.zip"
+                    sh "ls -l; pwd;sudo unzip -o bin_terraform.zip"
+                    sh "sudo mv terraform /usr/bin"
+                    sh "sudo rm -rf bin_terraform.zip"
+                    sh "sudo terraform "
+              }
+          }
+            stage('code checkout') {
+               steps {
+                    git branch: 'master', url: 'https://github.com/aleti-pavan/packer-ansible-terraform-demo.git'
+                    }
