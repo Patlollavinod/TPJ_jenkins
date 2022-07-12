@@ -1,0 +1,61 @@
+https://www.metamorphant.de/blog/posts/2019-03-11-jenkins-101-downstream-projects/
+https://www.jenkins.io/doc/book/pipeline/
+https://devopsqa.wordpress.com/2018/11/24/trigger-multi-jenkins-jobs-in-parallel-pipeline-project/
+https://registry.terraform.io/providers/taiidani/jenkins/latest/docs
+https://medium.com/@rosaniline/setup-chained-jenkins-declarative-pipeline-projects-with-triggers-d3d04f1daf75
+https://fabiogomezdiaz.com/posts/how-to-run-packer-pipelines-on-jenkins-part1-traditional-jenkins/
+https://itnext.io/jenkins-tutorial-part-8-triggering-pipeline-d53dbba539d6
+https://github.com/JaiTrieTree/jenkins-Pipeline-Scripts-
+https://shashwat.io/build-and-deploy-using-jenkins-packer-and-terraform-40b2aafedaec
+https://github.com/marketplace/actions/trigger-jenkins-multiple-jobs
+https://github.com/marketplace/actions/jenkins-job-trigger
+https://app.circleci.com/pipelines/github/Patlollavinod/P-A-T?branch=circleci-project-setup
+ https://stackoverflow.com/questions/69515638/how-to-setup-cron-for-downstream-job-in-jenkins-pipeline
+pipeline {
+    agent any
+    stages {
+        stage('testing') {
+            steps {
+                echo "Executing this stage first"
+            }
+        }
+        stage('build') {
+            parallel {
+                stage('build Test 1') {
+                    steps {
+                        echo "Here trigger job: jenkins_job_1. Triggered at time:"
+                        sh(script: "date -u")
+                        build(job: "jenkins_job_1")
+                    }
+                }
+                stage(testing ) {
+                    steps {
+                        echo "Here trigger job: jenkins_job_2. Triggered at time:"
+                        sh(script: "date -u")
+                        build(job: "jenkins_job_2")
+                        echo "Here trigger job: jenkins_job_3. Triggered at time:"
+                        sh(script: """date -u""")
+                        build(job: "jenkins_job_3")
+                    }
+                }
+            }
+        stage('find-upstream') {
+            steps {
+              script {
+                currentBuild.upstreamBuilds?.each{ b ->
+                    echo "Triggered by upstream project: ${b.getFullDisplayName()}"
+      }  
+    }
+    stages {			
+        stage('Build') {			
+            steps {			
+                echo 'testing executed'			
+            }			
+        }			
+    }			
+}	
+  }
+}
+            
+        }
+}
