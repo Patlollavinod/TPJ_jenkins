@@ -12,14 +12,13 @@ pipeline {
     stages {
           stage('Install git') {
               steps {
-                    sh "sudo apt-get install git" 
+                    sh "sudo apt-get install git -y" 
                     sh "sudo packer -version "
               }
           }
           stage(' install tree') {
                steps {
-                      sh "sudo apt install tree"
-                      sh " sudo dnf install tree"
+                      sh "sudo apt install tree -y"
                       sh "sudo snap install tree"
                       }
                 }      
