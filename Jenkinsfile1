@@ -11,14 +11,20 @@ pipeline {
     }
     stages {
           stage('Install Terraform') {
-              steps {
-                    sh "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -"
-                    sh "sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main""
-                    sh "sudo apt update" 
-                    sh "sudo apt install terraform"
+              steps {  
+                    sh "sudo apt update"                           
+                    sh "sudo apt install  software-properties-common gnupg2 curl"
+                    sh "curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg"
+                    sh "sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/"
+                    sh "sudo apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com focal main""
+                    sh "sudo apt update"
+                    sh "sudo apt install terraform -y"
               }
           }
-            stage('code checkout') {
-               steps {
+          stage('code checkout') {
+              steps {
                     git branch: 'main', url: 'https://github.com/Patlollavinod/TPJ_jenkins.git'
-                    }
+              }
+           }
+     }
+}
