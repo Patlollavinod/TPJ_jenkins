@@ -12,13 +12,14 @@ pipeline {
     stages {
           stage('Install packer') {
               steps {
-                    sh "curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -"
-                    sh "sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main""
                     sh "sudo apt-get update && sudo apt-get install packer" 
                     sh "sudo packer -version "
               }
           }
             stage('code checkout') {
                steps {
-                    git branch: 'main', url: 'https://github.com/Patlollavinod/TPJ_jenkins.git'
+                    git branch: 'main', credentialsId: '5fd8f57f-4320-4a5e-801d-320dd523aec7', url: 'https://github.com/Patlollavinod/TPJ_jenkins.git'
                     }
+                }
+            }
+        }
