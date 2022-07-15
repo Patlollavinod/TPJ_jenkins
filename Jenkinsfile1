@@ -27,4 +27,9 @@ pipeline {
                     }
            }
      }
+     post {
+          success {
+                   build quietPeriod: 30, job: 'TPJ_jenkins1', parameters: [string(name: 'project_name', value: 'Packer Pipeline')]
+          }
+     }
 }
