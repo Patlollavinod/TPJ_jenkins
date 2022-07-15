@@ -20,6 +20,11 @@ pipeline {
                steps {
                     git branch: 'main', credentialsId: '5fd8f57f-4320-4a5e-801d-320dd523aec7', url: 'https://github.com/Patlollavinod/TPJ_jenkins.git'
                     }
-                }
             }
-        }
+     }
+     post {
+        success {
+            build quietPeriod: 30, job: 'TPJ_jenkins2', parameters: [string(name: 'project_name', value: 'Packer Pipeline')]
+            }
+     }
+ }
