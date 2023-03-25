@@ -19,7 +19,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Deploy sample web application
-COPY samplewebapp.war /var/lib/tomcat9/webapps/
+COPY spring-petclinic-2.7.3.jar /var/lib/tomcat9/webapps/
 
 # Expose Apache and Tomcat ports
 EXPOSE 80
