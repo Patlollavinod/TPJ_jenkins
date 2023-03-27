@@ -3,7 +3,7 @@ pipeline {
     stages {
     stage('checkout '){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/feat-project2']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/prjpracticeteam/githubpractice.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/vinod']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Patlollavinod/TPJ_jenkins.git']]])
             }
         }
         stage('docker image  build') {
@@ -13,7 +13,7 @@ pipeline {
         }
         stage(' Runing python program'){
             steps{
-               sh ' phython hashmap.py'
+               sh ' phython main.py L1.txt L2.txt R.txt'
             }
         }
     }
